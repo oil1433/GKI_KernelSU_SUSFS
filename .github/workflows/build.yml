@@ -173,7 +173,7 @@ jobs:
       with:
         flavor: ${{ inputs.root_flavor }}
         commit: ${{ inputs.root_commit }}
-         - name: Apply KSUGATE anti-detection patch
+    - name: Apply KSUGATE anti-detection patch
       if: inputs.root_flavor == 'next'
       working-directory: ${{ github.workspace }}/kernel/common
       shell: bash
