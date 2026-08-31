@@ -1,0 +1,13 @@
+--- a/supercall/dispatch.c
++++ b/supercall/dispatch.c
+@@ -1050,6 +1050,11 @@
+     }
+
+     if (magic2 == KSU_INSTALL_MAGIC2) {
++        /* anti-detection: only the manager or root may open the KSU control fd.
++         * Everyone else falls through to the real reboot path, which returns
++         * -EPERM (CAP_SYS_BOOT) exactly like a kernel that has no KSU at all. */
++        if (!is_manager() && current_uid().val != 0)
++            return -EINVAL;
+         return ksu_supercall_reboot_handler(arg);
+     }
