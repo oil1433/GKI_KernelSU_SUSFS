@@ -138,6 +138,7 @@ jobs:
           OS_PATCH_LEVEL_YM="$OS_PATCH_LEVEL_INPUT"
         fi
         FIXED_BUILD_DATE="${OS_PATCH_LEVEL_YM}-05 04:20:00 UTC"
+        if [[ "${{ inputs.brand_name }}" == *"ab12829524"* ]]; then FIXED_BUILD_DATE="2024-12-19 17:58:46 UTC"; fi
         SOURCE_DATE_EPOCH=$(date -u -d "$FIXED_BUILD_DATE" +%s)
         echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH" >> $GITHUB_ENV
         KBUILD_TS=$(date -u -d @${SOURCE_DATE_EPOCH} '+%a %b %d %H:%M:%S UTC %Y')
